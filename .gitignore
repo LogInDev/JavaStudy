@@ -3,3 +3,6 @@ reviewDocument/gu/.makemd
 reviewDocument/gu/.obsidian
 reviewDocument/gu/Excalidraw
 reviewDocument/gu/Spaces
+
+# mac folder
+.DS_Store
