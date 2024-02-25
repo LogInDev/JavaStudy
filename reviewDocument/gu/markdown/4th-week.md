@@ -153,7 +153,27 @@ static void changPrimitive(Data dataX){
 
 - 멤버 변수 : 자동 초기화
 	- 인스턴스의 멤버 변수는 인스턴스를 생성할 때 자동으로 초기화 된다.
-	- 숫자(int) = 0, 
+	- 숫자(int) = 0,  boolean = false, 참조형 = null(null 값은 참조할 대상이 없다는 뜻으로 사용된다.)
+	- 개발자가 초기값을 직접 지정할 수 있다.
+- 지역 변수 : 수동 초기화
+	- 지역 변수는 항상 직접 초기화해야 한다.
+
+```java
+public class InitDate{
+	int value1;  //초기화 하지 않음
+	int value2= 10;  // 10으로 초기화
+}
+```
+
+```java
+public class InitMain{
+	public static void main(String[] args){
+		InitData data = new InitData();
+		System.out.println("value1 = " + data.value1);
+		System.out.println("value2 = " + data.value2);
+	}
+}
+```
 
 ### null값 할당
 
@@ -195,7 +215,7 @@ public class NullTest{}
 		System.out.println("bigData.data.value=" + bigData.data.value);
 	}
 }
-class Data{}
+class Data{
 	int value;
 }
 class BigData {
@@ -212,7 +232,7 @@ class BigData {
 public class NullTest{}
 	public static void main(String[] args) {
 		BigData bigData = new BigData();
-		bigData.data = new BigData();
+		bigData.data = new Data();
 		System.out.println("bigData.count=" + bigData.count);
 		System.out.println("bigData.data=" + bigData.data);
 		System.out.println("bigData.data.value=" + bigData.data.value);
