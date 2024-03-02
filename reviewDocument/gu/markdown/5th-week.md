@@ -233,7 +233,7 @@ printItem( new int[] {98, 85, 90});
 ```
 
 
-### new 연산자로 배열 생성
+#### new 연산자로 배열 생성
 
 > 타입[] 변수 = new 타입[길이];
 
@@ -316,7 +316,7 @@ System.out.println
 
 > 배열 항목에 또 다른 배열이 대입된 형태이다.
 
-#그림
+![[5-3.jpeg]]
 
 위 그림처럼 값1, 값3, 값4을 읽는 방법은 다음과 같다.
 
@@ -336,4 +336,186 @@ System.out.println
 	{값3, 값4, ...},   // 1차원 배열의 1 인덱스
 }
 
+```
+
+예를 들어 2개의 반의 학생 점수를 저장하는 이차원 배열을 만들면 1차원 배열에는 각 반을 저장하고, 2차원 배열에는 각 반의 학생 점수 값을 저장하면된다.
+
+```java
+int[][] scores = {
+	{80, 90, 96},
+	{76, 88}
+}
+
+int score = scores[0][2];  //96
+int score = scores[1][1];  //88
+
+scoers.length    // 반의 수 : 2
+score[0].length  // 첫 번째 반의 학생 수 : 3
+score[1].length  // 첫 번째 반의 학생 수 : 2
+```
+
+### new 연산자로 다차원 배열 생성
+
+> 배열 변수 선언 시 타입 뒤에 대괄호(`[]`)를 차원의 수만큼 붙이고, new 타입 뒤에도 차원의 수만큼 대괄호(`[]`)를 작성하면 된다.
+
+```java
+타입[][] 변수 = new 타입[1차원 수][2차원 수];
+```
+
+```java
+int[][] scores = new int[2][3];
+```
+
+<br>
+
+---
+## 객체를 참조하는 배열
+
+> 기본 타입(byte, char, short, int, long, float, double, boolean) 배열은 각 항목에 값을 직접 저장하지만, 참조 타입(클래스, 인터페이스) 배열은 각 항목에 객체의 번지를 저장한다.
+
+```java
+String[] strArray = new String[3];
+strArray[0] = "Java";
+strArray[1] = "C++";
+strArray[2] = "C#";
+```
+
+![[5-4.jpeg]]
+
+비교 연산자(`==`, `!=`)를 사용하면 배열 항목이 참조하는 객체의 번지가 같은지(같은 객체인지)를 확인할 수 있고 `.equals()` 사용시 안에 문자열이 같은지 비교할 수 있다.
+
+```java
+String[] languages = new String[3];
+languages[0] = "Java";
+languages[1] = "Java";
+languages[2] = new String("Java");
+
+
+languages[0] == languages[1]       // true - 같은 객체를 참조
+languages[0] == languages[2]       // false - 다른 객체를 참조
+languages[0].equals(languages[2])  // true - 문자열이 동일
+```
+
+![[5-5.jpeg]]
+
+<br>
+
+---
+## 배열 복사
+
+> 배열은 한 번 생성하면 길이를 변경할 수 없다. 길이를 늘려야 하는 경우 더 큰 길이의 배열을 생성하고 복사해야 한다.
+
+### for문을 이용한 배열 복사
+
+```java
+int[] oldArray = {1,2,3};
+int[] newArray = new int[5];
+
+for(int i=0;i<oldArray.length;i++){
+	newArray[i] = oldArray[i];
+}
+// newArray = [1, 2, 3, 0, 0]
+```
+
+### `System.arraycopy()`를 이용한 배열 복사
+
+![[5-6.jpeg]]
+
+```java
+String[] oldArray = {"java", "array", "copy"};
+String[] newArray = new String[5];
+
+System.arraycopy(oldArray, 0, newArray, 0, oldArray.length);
+// newArray = ["java", "array", "copy", null, null]
+```
+
+<br>
+
+---
+## 향상된 for문
+
+![[5-7.jpeg]]
+
+```java
+int[] scores = {95, 71, 84, 93, 87};
+int sum = 0;
+
+for(int score: scores){
+	sum +=score;
+}
+// sum = 430
+```
+
+<br>
+
+---
+## main() 메소드의 String[] 매개변수 용도
+
+Java 프로그램은 `java` 명령어를 통해 실행됩니다. 이 명령어는 JRE(Java Runtime Environment)를 실행시키며, JRE는 사용자가 지정한 특정 클래스를 로드합니다. 이렇게 로드된 클래스에서 `main()` 메소드를 찾아 실행합니다.
+
+`main()` 메소드는 Java 프로그램의 시작점, 즉 진입점(entry point)입니다. 따라서 `main()` 메소드에는 규칙이 있습니다.
+
+- `main()`은 시작점이므로 어디서든 접근 가능하게 `public` 접근 제어자를 사용해야 합니다.
+- Java 프로그램 시작 시 어떠한 객체도 생성되지 않았기 때문에 `static`으로 선언되어야 합니다.
+- 반환 값이 없으므로 `void`로 지정합니다. `main()` 메소드는 프로그램의 실행을 시작하고, 해당 메소드가 종료되면 프로그램이 종료되므로 별도의 반환 값은 필요하지 않습니다.
+- String 타입의 배열을 파라미터로 가져야 합니다. 이 파라미터는 커맨드 라인 인자를 받습니다. 커맨드 라인 인자는 프로그램 실행 시 전달되는 값으로, 프로그램의 실행 환경이나 조건에 따라 변할 수 있는 정보를 담습니다. 예를 들어, DB 연결 정보나 처리할 파일의 경로 등을 받습니다. 커맨드 라인 인자는 문자열 형태로 전달되기 때문에 String 타입 이외의 타입으로 배열을 받을 시 컴파일 에러가 발생합니다.
+
+
+```powershell
+java Sum 10 20
+```
+
+```java
+public class Sum{
+	public static void main(String[] args){
+		if(args.length != 2){
+			System.out.println("프로그램 입력값 부족");
+			System.exit(0);    // 프로그램 강제 종료
+		}
+
+		String strNum1 = args[0];
+		String strNum2 = args[1];
+
+		int num1 = Integer.parseInt(strNum1);
+		int num2 = Integer.parseInt(strNum2);
+	
+		int sum = num1 + num2;
+		System.out.println("두 수의 합: " + sum);   //  30
+	}
+}
+```
+
+<br>
+
+---
+## 열거(Enum) 타입
+
+> 한정된 값을 갖는 타입을 열거 타입(Enum, enumeration type)이라 한다.
+
+```java
+public enum Week {
+	MONDAY,
+	TUESDAY,
+	WEDNESDAY,
+	THURSDAY,
+	FRIDAY,
+	SATURDAY,
+	SUNDAY
+}
+```
+
+여기서 `Week`은 열거 타입 이름이며 `MONDAY` ~ `SUNDAY`는 열거 상수 목록이고 한정된 값을 표현한다.
+관례적으로 열거 상수는 알파벳으로 정의하며, 모두 대문자로 작성한다. 열거 상수가 여러 단어로 구성될 경우에는 언더바(`_`)로 연결하는 것이 관례이다.
+
+```java
+public enum Grade{
+	USER_BASIC,
+	USER_VIP
+}
+```
+
+열거 타입 변수에 열거 상수를 대입할 수 있으며 열거 상수는 `열거 타입.열거 상수` 로 사용한다.
+
+```java
+Week today = Week.SUNDAY;
 ```

@@ -542,7 +542,7 @@ int intValue = (int) doubleValue;
 
 <br/>
 
---
+---
 ## 연산식에서 자동 타입 변환
 
 > int 타입보다 작은 byte, short 타입의 변수는 int 타입으로 자동 타입 변환되어 연산을 수행한다.
